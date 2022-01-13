@@ -1,0 +1,44 @@
+<html>
+<head>
+<style>
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #8e8b8b;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #801e1e;
+}
+</style>
+</head>
+
+<h2>LRC Hardware</h2>
+
+<body>
+<table>
+   <tr>
+       <th>Hardware</th>
+       <th>Availability</th>
+   </tr> 
+   {% for hardware in hardware_info %}
+        <tr>
+            <td>hardware.name</td>
+            <td>
+              {% if hardware.availability == True %}
+                Available &#9745;
+              {% else %}
+                Not Available &#9746;
+              {% endif %}
+            </td>
+        </tr>
+</table>
+</body>
+</html>
