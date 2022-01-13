@@ -1,8 +1,7 @@
 from django.shortcuts import render
 from django.views.decorators.http import require_POST
 
-from .forms import AddHardwareForm
-from .forms import NewLoanForm
+from .forms import AddHardwareForm, NewLoanForm
 
 from .models import Hardware, Loan
 
