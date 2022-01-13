@@ -28,11 +28,11 @@ tr:nth-child(even) {
        <th>Hardware</th>
        <th>Availability</th>
    </tr> 
-   {% for hardware in hardware_info %}
+   {% for item in context %}
         <tr>
-            <td>hardware.name</td>
+            <td>{{  item.hardware_info.name  }}</td>
             <td>
-              {% if hardware.availability == True %}
+              {% if item.hardware_info.availability %}
                 Available &#9745;
               {% else %}
                 Not Available &#9746;

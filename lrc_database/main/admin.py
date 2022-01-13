@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
-from .models import (Course, Hardware, HardwareForm, Loan, LoanForm, LRCDatabaseUser,
+from .models import (Course, Hardware, Loan, LRCDatabaseUser,
                      SISession, SISessionChangeRequest,
                      TutoringShift, TutoringShiftChangeRequest)
 
@@ -60,14 +60,6 @@ class SISessionChangeRequestAdmin(admin.ModelAdmin):
     list_display = ("target", "reason", "approved", "approved_by", "approved_on")
 
 
-class LoanFormAdmin(admin.ModelFormAdmin):
-    pass
-
-
-class HardwareFormAdmin(admin.ModelFormAdmin):
-    pass
-
-
 admin.site.register(Course, CourseAdmin)
 admin.site.register(LRCDatabaseUser, LRCDatabaseUserAdmin)
 admin.site.register(TutoringShift, TutoringShiftAdmin)
@@ -76,5 +68,3 @@ admin.site.register(Hardware, HardwareAdmin)
 admin.site.register(SISession, SISessionAdmin)
 admin.site.register(SISessionChangeRequest, SISessionChangeRequestAdmin)
 admin.site.register(Loan, LoanAdmin)
-admin.site.register(LoanForm, LoanFormAdmin)
-admin.site.register(HardwareForm, HardwareFormAdmin)
