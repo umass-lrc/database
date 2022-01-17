@@ -1,0 +1,13 @@
+<html>
+    <form action="{% url 'addHardware' %}" method="POST" role="form">
+        {% csrf_token %}
+        <div class="form-group">
+            <div class="input-group">
+              {{ form.text }}
+              <span class="input-group-btn">
+                  <button type="submit" class="btn btn-default" id="add-btn">ADD</button>
+              </span>
+            </div>
+        </div>
+    </form>
+</html>

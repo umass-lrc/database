@@ -23,6 +23,13 @@ tr:nth-child(even) {
 <h2>LRC Hardware</h2>
 
 <body>
+  <div class="add-btn">
+    <a href = "{% url 'addHardware' %}">
+    <button type="button">  
+      Add New Hardware  
+      </button>   
+    </a>
+  </div>
 <table>
    <tr>
        <th>Hardware</th>
@@ -39,6 +46,7 @@ tr:nth-child(even) {
               {% endif %}
             </td>
         </tr>
+    {% endfor %}
 </table>
 </body>
 </html>

@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.views.decorators.http import require_POST
 
 from .forms import AddHardwareForm, NewLoanForm
@@ -10,11 +10,11 @@ def index(request):
 
 
 def show_hardware(request):
-    addForm = AddHardwareForm()
+    # addForm = AddHardwareForm(request.POST)
     hardware_info = []
     for hardware in Hardware.objects.all():
-        hardware_info.append({'name': hardware.name, 'availability': hardware.isAvailable})
-    context = {'hardware_info': hardware_info, 'addForm': addForm}
+        hardware_info.append({'name': hardware.name, 'availability': hardware.is_available})
+    context = {'hardware_info': hardware_info}  # 'addForm': addForm}
     return render(request, 'hardware_table.html', context)
 
 
@@ -30,11 +30,12 @@ def show_loans(request):
 
 @require_POST
 def add_hardware(request):
+    render(request, 'addHardware.html')
     form = AddHardwareForm(request.POST)
     if form.is_valid():
         new_hardware = Hardware(name=request.POST['name'], is_available=request.POST['is_available'])
         new_hardware.save()
-    return  # redirect('show_hardware')
+    return redirect('show_hardware')
 
 
 @require_POST
