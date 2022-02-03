@@ -19,19 +19,19 @@ def show_hardware(request):
 
 
 def show_loans(request):
-    newLoanForm = NewLoanForm()
+    #  newLoanForm = NewLoanForm()
     loan_info = []
     for loans in Loan.objects.all():
         loan_info.append({'target': loans.target, 'hardware_user': loans.hardware_user,
                           'start_time': loans.start_time, 'return_time': loans.return_time})
-    context = {'loan_info': loan_info, 'newLoanForm': newLoanForm}
+    context = {'loan_info': loan_info}
     return render(request, 'showLoans.html', context)
 
 
 @require_POST
 def add_hardware(request):
     render(request, 'addHardware.html')
-    form = AddHardwareForm(request.POST)
+    form = AddHardwareForm
     if form.is_valid():
         new_hardware = Hardware(name=request.POST['name'], is_available=request.POST['is_available'])
         new_hardware.save()
