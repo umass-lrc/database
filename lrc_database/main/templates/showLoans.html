@@ -1,56 +1,59 @@
-<html>
-<head>
+{% extends "base.html" %}
+
+{% block content %}
 <style>
 
-table {
-  font-family: arial, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
-}
+  table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  td, th {
+    border: 1px solid #8e8b8b;
+    text-align: left;
+    padding: 8px;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #801e1e;
+  }
 
-td, th {
-  border: 1px solid #8e8b8b;
-  text-align: left;
-  padding: 8px;
-}
+  button{
+    margin: 20px;
+  }
+  </style>
 
-tr:nth-child(even) {
-  background-color: #801e1e;
-}
-</style>
-</head>
+  <h2>LRC Hardware Loans</h2>
+  <body>
+    <div class="add-btn">
+      <a href = "{% url 'addHardware' %}">
+      <button type="button">  
+        Add New Loan  
+        </button>   
+      </a>
+    </div>
+    <table>
+     <tr>
+         <th>Hardware</th>
+         <th>User</th>
+         <th>Loan Start Time</th>
+         <th>Loan Return Time</th>
+     </tr> 
+     {% for item in context %}
+          <tr>
+              <td>{{  item.loan_info.target  }}</td>
+              <td>{{  item.loan_info.hardware_user  }}</td>
+              <td>{{  item.loan_info.start_time  }}</td>
+              <td>
+                  {% if item.loan_info.return_time  %}
+                    {{ item.loan_info.return_time}}
+                  {% else %}
+                    Loan Still Active;
+                  {% endif %}
+                </td>
+          </tr>
+      {% endfor %}
+    </table>
+  </body>
 
-<h2>LRC Hardware</h2>
-
-<body>
-  <div class="add-btn">
-    <a href = "{% url 'addHardware' %}">
-    <button type="button">  
-      Add New Loan  
-      </button>   
-    </a>
-  </div>
-<table>
-   <tr>
-       <th>Hardware</th>
-       <th>User</th>
-       <th>Loan Start Time</th>
-       <th>Loan Return Time</th>
-   </tr> 
-   {% for item in context %}
-        <tr>
-            <td>{{  item.loan_info.target  }}</td>
-            <td>{{  item.loan_info.hardware_user  }}</td>
-            <td>{{  item.loan_info.start_time  }}</td>
-            <td>
-                {% if item.loan_info.return_time  %}
-                  {{ item.loan_info.return_time}}
-                {% else %}
-                  Loan Still Active;
-                {% endif %}
-              </td>
-        </tr>
-    {% endfor %}
-</table>
-</body>
-</html>
+{% endblock content %}

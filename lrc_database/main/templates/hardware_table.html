@@ -1,52 +1,55 @@
-<html>
-<head>
+{% extends "base.html" %}
+
+{% block content %}
 <style>
 
-table {
-  font-family: arial, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
-}
+  table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  td, th {
+    border: 1px solid #8e8b8b;
+    text-align: left;
+    padding: 8px;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #801e1e;
+  }
 
-td, th {
-  border: 1px solid #8e8b8b;
-  text-align: left;
-  padding: 8px;
-}
+  button{
+    margin: 20px;
+  }
+  </style>
 
-tr:nth-child(even) {
-  background-color: #801e1e;
-}
-</style>
-</head>
+  <h2>LRC Hardware</h2>
+  <body>
+    <div class="add-btn">
+      <a href = "{% url 'addHardware' %}">
+      <button type="button">  
+        Add New Hardware  
+        </button>   
+      </a>
+    </div>
+  <table>
+     <tr>
+         <th>Hardware</th>
+         <th>Availability</th>
+     </tr> 
+     {% for item in context %}
+          <tr>
+              <td>{{  item.hardware_info.name  }}</td>
+              <td>
+                {% if item.hardware_info.availability %}
+                  Available &#9745;
+                {% else %}
+                  Not Available &#9746;
+                {% endif %}
+              </td>
+          </tr>
+      {% endfor %}
+  </table>
+  </body>
 
-<h2>LRC Hardware</h2>
-
-<body>
-  <div class="add-btn">
-    <a href = "{% url 'addHardware' %}">
-    <button type="button">  
-      Add New Hardware  
-      </button>   
-    </a>
-  </div>
-<table>
-   <tr>
-       <th>Hardware</th>
-       <th>Availability</th>
-   </tr> 
-   {% for item in context %}
-        <tr>
-            <td>{{  item.hardware_info.name  }}</td>
-            <td>
-              {% if item.hardware_info.availability %}
-                Available &#9745;
-              {% else %}
-                Not Available &#9746;
-              {% endif %}
-            </td>
-        </tr>
-    {% endfor %}
-</table>
-</body>
-</html>
+{% endblock content %}
