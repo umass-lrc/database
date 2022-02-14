@@ -1,6 +1,4 @@
-from django.shortcuts import redirect, render
-from django.views.decorators.http import require_POST
-
+from django.shortcuts import render
 from .forms import AddHardwareForm, NewLoanForm
 from .models import Hardware, Loan
 
@@ -10,16 +8,14 @@ def index(request):
 
 
 def show_hardware(request):
-    # addForm = AddHardwareForm(request.POST)
     hardware_info = []
     for hardware in Hardware.objects.all():
         hardware_info.append({'name': hardware.name, 'availability': hardware.is_available})
-    context = {'hardware_info': hardware_info}  # 'addForm': addForm}
+    context = {'hardware_info': hardware_info}
     return render(request, 'hardware_table.html', context)
 
 
 def show_loans(request):
-    #  newLoanForm = NewLoanForm()
     loan_info = []
     for loans in Loan.objects.all():
         loan_info.append({'target': loans.target, 'hardware_user': loans.hardware_user,
@@ -28,24 +24,26 @@ def show_loans(request):
     return render(request, 'showLoans.html', context)
 
 
-@require_POST
 def add_hardware(request):
-    render(request, 'addHardware.html')
-    form = AddHardwareForm
+    form = AddHardwareForm(request.POST or None)
     if form.is_valid():
-        new_hardware = Hardware(name=request.POST['name'], is_available=request.POST['is_available'])
-        new_hardware.save()
-    return redirect('show_hardware')
+        instance = form.save(commit=False)
+        instance.save()
+    context = {
+        'form': form
+    }
+    return render(request, 'addHardware.html', context)
 
 
-@require_POST
-def add_loan(request):
-    form = NewLoanForm(request.POST)
+def add_loans(request):
+    form = NewLoanForm(request.POST or None)
     if form.is_valid():
-        new_loan = Loan(target=request.POST['target'], hardware_user=request.POST['hardware_user'],
-                        start_time=request.POST['start_time'], return_time=request.POST['return_time'])
-        new_loan.save()
-    return  # redirect('show_loans')
+        instance = form.save(commit=False)
+        instance.save()
+        context = {
+            'form': form
+        }
+    return render(request, 'addLoans.html', context)
 
 
 def edit_hardware(request, id):
