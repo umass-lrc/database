@@ -1,4 +1,5 @@
 from django.shortcuts import render
+
 from .forms import AddHardwareForm, NewLoanForm
 from .models import Hardware, Loan
 
