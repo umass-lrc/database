@@ -2,7 +2,10 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import redirect_to_login
 from django.core.exceptions import PermissionDenied
-from django.shortcuts import get_list_or_404, render
+from django.shortcuts import get_list_or_404, redirect, render
+
+from .forms import AddHardwareForm, NewLoanForm
+from .models import Hardware, Loan
 
 User = get_user_model()
 
@@ -34,3 +37,55 @@ def index(request):
 def list_users(request, group):
     users = get_list_or_404(User, groups__name=group)
     return render(request, "list_users.html", {"users": users, "group": group})
+
+
+def show_hardware(request):
+    hardware_info = []
+    for hardware in Hardware.objects.all():
+        hardware_info.append(
+            {"name": hardware.name, "availability": hardware.is_available}
+        )
+    context = {"hardware_info": hardware_info}
+    return render(request, "hardware_table.html", context)
+
+
+def show_loans(request):
+    data = Loan.objects.all()
+    context = {"loanInfo": data}
+    return render(request, "showLoans.html", context)
+
+
+def add_hardware(request):
+    if request.method == "POST":
+        form = AddHardwareForm(request.POST)
+        if form.is_valid():
+            instance = form.save(commit=False)
+            instance.save()
+        return redirect("showHardware")
+    else:
+        form = AddHardwareForm()
+        context = {"form": form}
+    return render(request, "addHardware.html", context)
+
+
+def add_loans(request):
+    if request.method == "POST":
+        form = NewLoanForm(request.POST)
+        if form.is_valid():
+            instance = form.save(commit=False)
+            instance.save()
+            return redirect("showLoans")
+    else:
+        form = NewLoanForm()
+        context = {"form": form}
+    return render(request, "addLoans.html", context)
+
+
+def edit_loans(request, id):
+    hardware = Hardware.objects.get(pk=id)
+    form = AddHardwareForm(instance=hardware)
+    if form.is_valid():
+        instance = form.save(commit=False)
+        instance.save()
+        context = {"form": form}
+    return render(request, "editLoans.html", context)

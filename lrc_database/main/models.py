@@ -4,7 +4,9 @@ from django.db import models
 
 
 class Course(models.Model):
-    department = models.CharField(max_length=16, help_text="Department string, like COMPSCI or MATH.")
+    department = models.CharField(
+        max_length=16, help_text="Department string, like COMPSCI or MATH."
+    )
     number = models.IntegerField(
         validators=[
             validators.MinValueValidator(100),
@@ -38,7 +40,9 @@ class TutoringShift(models.Model):
         help_text="The tutor who is responsible for this session.",
     )
     start = models.DateTimeField(help_text="The time that the session starts.")
-    duration = models.DurationField(help_text="How long the session will last, in HH:MM:SS format.")
+    duration = models.DurationField(
+        help_text="How long the session will last, in HH:MM:SS format."
+    )
     location = models.CharField(
         max_length=32,
         help_text="The location where the session will be held, e.g. GSMN 64.",
@@ -55,8 +59,12 @@ class TutoringShiftChangeRequest(models.Model):
         on_delete=models.CASCADE,
         help_text="Tutoring shift to edit.",
     )
-    reason = models.CharField(max_length=512, help_text="Explanation for why this change is being requested.")
-    approved = models.BooleanField(default=False, help_text="Whether the request is approved or not.")
+    reason = models.CharField(
+        max_length=512, help_text="Explanation for why this change is being requested."
+    )
+    approved = models.BooleanField(
+        default=False, help_text="Whether the request is approved or not."
+    )
     approved_by = models.ForeignKey(
         to=LRCDatabaseUser,
         related_name="tutoring_shift_change_request_approved_by",
@@ -66,7 +74,9 @@ class TutoringShiftChangeRequest(models.Model):
         on_delete=models.CASCADE,
         help_text="The user (if any) who approved the change request.",
     )
-    approved_on = models.DateTimeField(help_text="When the request was approved.", blank=True, null=True, default=None)
+    approved_on = models.DateTimeField(
+        help_text="When the request was approved.", blank=True, null=True, default=None
+    )
 
     new_tutor = models.ForeignKey(
         to=LRCDatabaseUser,
@@ -108,7 +118,9 @@ class SISession(models.Model):
         help_text="The SI leader who is responsible for this session.",
     )
     start = models.DateTimeField(help_text="The time that the session starts.")
-    duration = models.DurationField(help_text="How long the session will last, in HH:MM:SS format.")
+    duration = models.DurationField(
+        help_text="How long the session will last, in HH:MM:SS format."
+    )
     location = models.CharField(
         max_length=32,
         help_text="The location where the session will be held, e.g. GSMN 64.",
@@ -129,8 +141,12 @@ class SISessionChangeRequest(models.Model):
         on_delete=models.CASCADE,
         help_text="SI session to edit.",
     )
-    reason = models.CharField(max_length=512, help_text="Explanation for why this change is being requested.")
-    approved = models.BooleanField(default=False, help_text="Whether the request is approved or not.")
+    reason = models.CharField(
+        max_length=512, help_text="Explanation for why this change is being requested."
+    )
+    approved = models.BooleanField(
+        default=False, help_text="Whether the request is approved or not."
+    )
     approved_by = models.ForeignKey(
         to=LRCDatabaseUser,
         related_name="si_session_change_request_approved_by",
@@ -140,7 +156,9 @@ class SISessionChangeRequest(models.Model):
         on_delete=models.CASCADE,
         help_text="The user (if any) who approved the change request.",
     )
-    approved_on = models.DateTimeField(help_text="When the request was approved.", blank=True, null=True, default=None)
+    approved_on = models.DateTimeField(
+        help_text="When the request was approved.", blank=True, null=True, default=None
+    )
 
     new_si_leader = models.ForeignKey(
         to=LRCDatabaseUser,
@@ -184,11 +202,13 @@ class Loan(models.Model):
         to=Hardware,
         related_name="intended_hardware_to_borrow",
         on_delete=models.CASCADE,
-        help_text="The desired hardware being requested",
+        help_text="The desired hardware being requested   ",
     )
 
     hardware_user = models.ForeignKey(
-        to=LRCDatabaseUser, on_delete=models.CASCADE, help_text="The LRC user borrowing the hardware"
+        to=LRCDatabaseUser,
+        on_delete=models.CASCADE,
+        help_text="  The LRC user borrowing the hardware",
     )
 
     start_time = models.DateTimeField()

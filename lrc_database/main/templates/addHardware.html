@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<style>
+    button {
+        margin: 20px;
+        box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        border: 1px #801e1e;
+
+    }
+
+    form {
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        box-sizing: border-box;
+        margin: 20px;
+    }
+</style>
+
+<form action="{% url 'addHardware' %}" method="POST" role="form">
+    {% csrf_token %}
+    <div class="form-group">
+        <div class="input-group">
+            {{ form|crispy }}
+        </div>
+        <div>
+            <span class="input-group-btn">
+                <button type="submit" class="btn btn-default" id="add-btn">Add Hardware</button>
+            </span>
+        </div>
+    </div>
+</form>
+
+{% endblock content %}
