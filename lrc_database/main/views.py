@@ -40,13 +40,7 @@ def list_users(request, group):
 
 
 def show_hardware(request):
-    hardware_info = []
-    for hardware in Hardware.objects.all():
-        hardware_info.append(
-            {"name": hardware.name, "availability": hardware.is_available}
-        )
-    context = {"hardware_info": hardware_info}
-    return render(request, "hardware_table.html", context)
+    return render(request, "hardware_table.html", {"hardware": Hardware.objects.all()})
 
 
 def show_loans(request):
