@@ -45,8 +45,7 @@ def show_hardware(request):
 
 def show_loans(request):
     data = Loan.objects.all()
-    context = {"loanInfo": data}
-    return render(request, "showLoans.html", context)
+    return render(request, "showLoans.html", {"loanInfo": data})
 
 
 def add_hardware(request):

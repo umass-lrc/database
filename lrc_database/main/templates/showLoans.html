@@ -1,72 +1,38 @@
 {% extends "base.html" %}
 
 {% block content %}
-<style>
-    table {
-        border-collapse: collapse;
-        width: 100%;
-    }
-
-    td,
-    th {
-        border: 1px solid #8e8b8b;
-        text-align: left;
-        padding: 8px;
-    }
-
-    tr:nth-child(even) {
-        background-color: #8d252571;
-    }
-
-    button {
-        margin: 20px;
-    }
-</style>
-
-<h2>LRC Hardware Loans</h2>
-
-<body>
-    <div class="add-btn">
-        <a href="{% url 'addLoans' %}">
-            <button type="button">
-                Add New Loan
-            </button>
-        </a>
-    </div>
-    <table>
+<h2>LRC Loans</h2>
+<div class="add-btn">
+    <a href="{% url 'addLoans' %}">
+        <button type="button" class="btn btn-primary">
+            Add New Loan
+        </button>
+    </a>
+</div>
+<table class="table table-striped table-hover">
+    <thead>
         <tr>
             <th>Hardware</th>
             <th>User</th>
-            <th>Loan Start Time</th>
-            <th>Loan Return Time</th>
+            <th>Start Time</th>
+            <th>Return Time</th>
         </tr>
-        {% for item in context.loanInfo %}
+    </thead>
+    <tbody>
+        {% for loan in loanInfo %}
         <tr>
-            <td>{{ item.target }}</td>
-            <td>{{ item.hardware_user }}</td>
-            <td>{{ item.start_time }}</td>
+            <td>{{ loan.target }}</td>
+            <td>{{ loan.hardware_user }}</td>
+            <td>{{ loan.start_time }}</td>
             <td>
-                {% if item.return_time %}
-                {{ item.loan_info.return_time}}
+                {% if loan.return_time %}
+                {{loan.return_time}}
                 {% else %}
-                Loan Still Active;
+                Loan Currently Active
                 {% endif %}
             </td>
         </tr>
         {% endfor %}
-        <tr>
-            <td>Test 1</td>
-            <td>Test 2</td>
-            <td>Test 3</td>
-            <td>Test 4</td>
-        </tr>
-        <tr>
-            <td>Test 1</td>
-            <td>Test 2</td>
-            <td>Test 3</td>
-            <td>Test 4</td>
-        </tr>
-    </table>
-</body>
-
+    </tbody>
+</table>
 {% endblock content %}
