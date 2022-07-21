@@ -1,6 +1,13 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h2>{{ kind }} change requests</h2>
-    {% include "includes/shift_change_request_table.html" %}
+<h2>Pending {{ kind }} Change Requests</h2>
+<div class="add-btn">
+    <a href="{% url 'view_approved_change_requests' kind %}">
+        <button type="button" class="btn btn-primary">
+            Approved Requests
+        </button>
+    </a>
+</div>
+{% include "includes/shift_change_request_table.html" %}
 {% endblock %}

@@ -14,6 +14,21 @@ urlpatterns = [
         views.view_shift_change_requests,
         name="view_shift_change_requests",
     ),
+    path(
+        "scheduling/approved_change_requests/<str:kind>",
+        views.view_shift_change_approved_requests,
+        name="view_approved_change_requests",
+    ),
+    path(
+        "scheduling/approved_change_requests/<int:request_id>",
+        views.view_shift_change_approved_requests,
+        name="view_approved_request",
+    ),
+    path(
+        "scheduling/shift_change_requests/<str:kind>/<int:request_id>",
+        views.view_shift_change_approved_requests,
+        name="view_request",
+    ),
     path("shifts/<int:shift_id>", views.view_shift, name="view_shift"),
     path(
         "shifts/<int:shift_id>/request_change",

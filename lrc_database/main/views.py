@@ -243,6 +243,22 @@ def view_shift_change_requests(request, kind):
 
 
 @restrict_to_groups("Office staff", "Supervisors")
+def view_shift_change_approved_requests(request, kind):
+    requests = get_list_or_404(ShiftChangeRequest, target__kind=kind, approved=True)
+    return render(
+        request,
+        "scheduling/view_approved_requests.html",
+        {"change_requests": requests, "kind": kind},
+    )
+
+
+@restrict_to_groups("Office staff", "Supervisors")
+def view_approved_request(request, kind, request_id):
+    ap_request = ShiftChangeRequest.objects.get(request_id)
+    return render(request, "scheduling/approved_request.html", {"ap_request": ap_request})
+
+
+@restrict_to_groups("Office staff", "Supervisors")
 def show_hardware(request):
     hardware = Hardware.objects.order_by("name")
     curLoans = Loan.objects.all()
